@@ -11,6 +11,8 @@
 
 // todo: see if can set ldr pin to a uint8_t to have it in a variable pointer
 // todo: fix startDistance to change on startup as couldnt figure out the bug where startDistance gets set to 128.00 after first activation
+// todo: make main loop async for different components
+// todo: make animations for led strips
 
 // setup servo
 const int servoPin = 3;
@@ -20,7 +22,7 @@ Servo servo;
 const int trigPin = 12;
 const int echoPin = 13;
 double duration, distance;
-const float startDistance = 32;
+float startDistance;
 
 // setup LED strip
 #define LED_PIN 9
@@ -29,6 +31,8 @@ CRGB leds[NUM_LEDS];
 int i{};
 int brightness{50};
 
+// debug variables
+int debugCount{0};
 
 void setup()
 {
@@ -40,6 +44,7 @@ void setup()
     // setup ultrasonic
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);
+    startDistance = measureUltrasonic();
 
     // setup LDR
     pinMode(A0, INPUT);
@@ -51,7 +56,7 @@ void setup()
 
 void loop()
 {
-    //servo.write(180);
+    // servo.write(180);
     Serial.println("servo forwards");
     Serial.println(measureUltrasonic());
     Serial.println(measureLDR());
@@ -59,7 +64,7 @@ void loop()
     Serial.println(isObjectClose());
     ultrasonicLoop();
     delay(1000);
-    //servo.write(0);
+    // servo.write(0);
     Serial.println("servo stop");
     Serial.println(measureUltrasonic());
     Serial.println(measureLDR());
@@ -71,9 +76,12 @@ void loop()
 
 void ultrasonicLoop()
 {
-    if (isObjectClose()) {
+    if (isObjectClose())
+    {
         LEDTestPattern();
-    } else {
+    }
+    else
+    {
         clearLEDStrip();
     }
 }
@@ -106,29 +114,36 @@ void LEDTestPattern()
 {
     for (int i = 0; i <= NUM_LEDS; i++)
     {
+        debugStartDistance();
         if (i < 5)
         {
             leds[i] = CRGB(0, 0, 255);
+            debugStartDistance();
         }
         else if (i < 10)
         {
             leds[i] = CRGB(255, 0, 255);
+            debugStartDistance();
         }
         else if (i < 15)
         {
             leds[i] = CRGB(255, 0, 0);
+            debugStartDistance();
         }
         else if (i < 20)
         {
             leds[i] = CRGB(255, 255, 0);
+            debugStartDistance();
         }
         else if (i < 25)
         {
             leds[i] = CRGB(0, 255, 0);
+            debugStartDistance();
         }
         else if (i <= 30)
         {
             leds[i] = CRGB(255, 255, 255);
+            debugStartDistance();
         }
         FastLED.show();
     }
@@ -147,4 +162,11 @@ void clearLEDStrip()
 bool isObjectClose()
 {
     return (measureUltrasonic() < (startDistance / 1.1));
+}
+
+void debugStartDistance()
+{
+    Serial.print(debugCount);
+    Serial.print(": ");
+    Serial.println(startDistance);
 }
