@@ -1,6 +1,8 @@
 #include <Servo.h>
 #include <FastLED.h>
 
+#include "async.h"
+
 // *pin d3: 360 degree servo data
 // *pin d9: led strip data
 // *pin d12: ultrasonic trig line
