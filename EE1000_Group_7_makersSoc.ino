@@ -25,7 +25,7 @@ Servo servo;
 const int trigPin = 12;
 const int echoPin = 13;
 double duration, distance;
-float startDistance;
+float startDistance {32.0};
 
 // setup LED strip
 #define LED_PIN 9
@@ -47,7 +47,6 @@ void setup()
     // setup ultrasonic
     pinMode(trigPin, OUTPUT);
     pinMode(echoPin, INPUT);
-    startDistance = measureUltrasonic();
 
     // setup LDR
     pinMode(A0, INPUT);
@@ -115,38 +114,31 @@ int measureLDR()
 // sets the LED strip to the test pattern
 void LEDTestPattern()
 {
-    for (int i = 0; i <= NUM_LEDS; i++)
+    for (int i = 0; i < NUM_LEDS; i++)
     {
-        debugStartDistance();
         if (i < 5)
         {
             leds[i] = CRGB(0, 0, 255);
-            debugStartDistance();
         }
         else if (i < 10)
         {
             leds[i] = CRGB(255, 0, 255);
-            debugStartDistance();
         }
         else if (i < 15)
         {
             leds[i] = CRGB(255, 0, 0);
-            debugStartDistance();
         }
         else if (i < 20)
         {
             leds[i] = CRGB(255, 255, 0);
-            debugStartDistance();
         }
         else if (i < 25)
         {
             leds[i] = CRGB(0, 255, 0);
-            debugStartDistance();
         }
         else if (i <= 30)
         {
             leds[i] = CRGB(255, 255, 255);
-            debugStartDistance();
         }
         FastLED.show();
     }
@@ -164,7 +156,7 @@ void clearLEDStrip()
 // distance when the arduino initilised
 bool isObjectClose()
 {
-    return (measureUltrasonic() < (startDistance / 1.1));
+    return (measureUltrasonic() < (startDistance * 0.9));
 }
 
 void debugStartDistance()
