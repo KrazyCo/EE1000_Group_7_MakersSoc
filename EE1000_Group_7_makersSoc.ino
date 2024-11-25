@@ -13,8 +13,9 @@
 
 // todo: see if can set ldr pin to a uint8_t to have it in a variable pointer
 // todo: fix startDistance to change on startup as couldnt figure out the bug where startDistance gets set to 128.00 after first activation
-// todo: make main loop async for different components
+// todo: implement main loop async for different components
 // todo: make animations for led strips
+// todo: split code into separate files
 
 // setup servo
 const int servoPin = 3;
