@@ -1,5 +1,7 @@
 #include "LEDStrip.h"
 
+#include "async.h"
+
 // setup ultrasonic
 const int trigPin = 12;
 const int echoPin = 13;
@@ -23,6 +25,7 @@ void ultrasonicLoop()
     {
         clearLEDStrip();
     }
+    addFunctionToQueue(ultrasonicLoop, 200); // runs ultrasonicLoop every 200ms (5hz)
 }
 
 // returns a float of what the ultrasonic sensor is currently sensing
@@ -39,6 +42,8 @@ float measureUltrasonic()
     duration = pulseIn(echoPin, HIGH);
 
     distance = (((duration * 1000.0) / 340.0) / 100.0) / 2.0; // calculate distance in CM
+    Serial.print("Ultrasonic: ");
+    Serial.println(distance);
     return distance;
 }
 
