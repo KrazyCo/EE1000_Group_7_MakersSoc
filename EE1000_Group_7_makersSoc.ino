@@ -4,6 +4,7 @@
 #include "ultrasonic.h"
 #include "LEDStrip.h"
 #include "LDR.h"
+#include "speaker.h"
 
 // *pin d3: 360 degree servo data
 // *pin d9: led strip data
@@ -15,7 +16,6 @@
 
 // todo: make animations for led strips
 // todo: make led animations work with async functions
-// todo: figure out what needs to happen to the main ultrasonic loop
 
 // ? everything is waiting on led animation rn, so either need to do those or make some debug ones for rn
 
@@ -28,10 +28,13 @@ void setup()
     setupUltrasonic();
     setupLEDStrip();
     setupLDR();
+    setupSpeaker();
 
     // setup starting functions
     addFunctionToQueue(LDRLoop, 1000);
     addFunctionToQueue(ultrasonicLoop, 1000);
+    // addFunctionToQueue(servo0, 1000);
+    // addFunctionToQueue(speakerTest, 1000);
 }
 
 void loop()
