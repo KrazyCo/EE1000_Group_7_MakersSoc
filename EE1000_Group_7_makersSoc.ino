@@ -34,7 +34,8 @@ void setup()
     addFunctionToQueue(LDRLoop, 1000);
     addFunctionToQueue(ultrasonicLoop, 1000);
     // addFunctionToQueue(servo0, 1000);
-    // addFunctionToQueue(speakerTest, 1000);
+    // addFunctionToQueue(queueCountdown, 1000);
+    // addFunctionToQueue(queueFallingAnimation, 1000);
 }
 
 void loop()

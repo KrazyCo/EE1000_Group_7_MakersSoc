@@ -1,6 +1,7 @@
 #include "LEDStrip.h"
 
 #include "async.h"
+#include "speaker.h"
 
 // setup ultrasonic
 const int trigPin = 12;
@@ -19,13 +20,15 @@ void ultrasonicLoop()
 {
     if (isObjectClose())
     {
-        LEDTestPattern();
+        queueFallingAnimation();
+        queueCountdown();
+        addFunctionToQueue(ultrasonicLoop, 10000); // runs ultrasonicLoop every 200ms (5hz)
     }
     else
     {
         clearLEDStrip();
+        addFunctionToQueue(ultrasonicLoop, 200); // runs ultrasonicLoop every 200ms (5hz)
     }
-    addFunctionToQueue(ultrasonicLoop, 200); // runs ultrasonicLoop every 200ms (5hz)
 }
 
 // returns a float of what the ultrasonic sensor is currently sensing

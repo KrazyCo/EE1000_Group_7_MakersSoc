@@ -1,6 +1,4 @@
-#define DEBUGASYNC
-
-constexpr int asyncLength = 32;
+constexpr int asyncLength = 128;
 unsigned long asyncMillis[asyncLength];
 void (*asyncFunctions[asyncLength])(); // arrary of void function pointers
 
@@ -29,14 +27,12 @@ void asyncLoop()
             Serial.println("no function found");
             debugAsync(i);
             debugAsync();
-            exit(-1);
         }
         if (asyncFunctions[i] && asyncMillis[i] == 0)
         {
             Serial.println("function found but no time");
             debugAsync(i);
             debugAsync();
-            exit(-1);
         }
         if (asyncMillis[i] < millis() and asyncMillis[i] != 0) // if its 0 that means its not used
         {
@@ -61,7 +57,6 @@ void asyncLoop()
 // no arg for function prints the whole array list
 void debugAsync()
 {
-    #ifdef DEBUGASYNC
     Serial.print("\tcurrent millis is ");
     Serial.println(millis());
     for (int i = 0; i < asyncLength; i++)
@@ -81,16 +76,11 @@ void debugAsync()
             Serial.println("\tno function pointer");
         }
     }
-    #endif
-    #ifndef DEBUGASYNC
-    return;
-    #endif
 }
 
 // function with 1 int arugument prints only that item
 void debugAsync(int i)
 {
-    #ifdef DEBUGASYNC
     Serial.print("\tcurrent millis is ");
     Serial.println(millis());
     Serial.print('\t');
@@ -107,8 +97,4 @@ void debugAsync(int i)
     { 
         Serial.println("\tno function pointer");
     }
-    #endif
-    #ifndef DEBUGASYNC
-    return;
-    #endif
 }

@@ -1,5 +1,7 @@
 #include <FastLED.h>
 
+#include "async.h"
+
 // setup LED strip
 #define LED_PIN 9
 #define NUM_LEDS 30
@@ -12,6 +14,34 @@ void setupLEDStrip()
     // setup LED strip
     FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
     FastLED.setBrightness(brightness);
+}
+
+// constexpr int fallingAnimations {5};
+int currentFallingLed{0};
+
+void nextFallingAnimation()
+{
+    if (currentFallingLed < NUM_LEDS)
+    {
+        leds[currentFallingLed] = CRGB(0, 0, 255);
+        FastLED.show();
+        currentFallingLed++;
+    }
+    else
+    {
+        currentFallingLed = 0;
+    }
+}
+
+void queueFallingAnimation()
+{
+    int timeBetweenAnimations{50};
+    int cumulativeTime{0};
+    for (int i = 0; i < NUM_LEDS; i++)
+    {
+        addFunctionToQueue(nextFallingAnimation, cumulativeTime);
+        cumulativeTime += timeBetweenAnimations;
+    }
 }
 
 // sets the LED strip to the test pattern
