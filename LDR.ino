@@ -1,3 +1,5 @@
+#include "async.h"
+
 void setupLDR()
 {
     // setup LDR
@@ -11,4 +13,10 @@ int measureLDR()
     Serial.print("LDR: ");
     Serial.println(LDRValue);
     return LDRValue;
+}
+
+void LDRLoop()
+{
+    measureLDR();
+    addFunctionToQueue(LDRLoop, 1000);
 }

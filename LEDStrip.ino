@@ -50,7 +50,7 @@ void LEDTestPattern()
 // sets the LED strip to all off
 void clearLEDStrip()
 {
-    for (int i = 0; i <= NUM_LEDS; i++)
+    for (int i = 0; i < NUM_LEDS; i++)
         leds[i] = CRGB(0, 0, 0);
     FastLED.show();
 }

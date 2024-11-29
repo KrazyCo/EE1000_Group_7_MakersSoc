@@ -1,3 +1,5 @@
+#define DEBUGASYNC
+
 constexpr int asyncLength = 32;
 unsigned long asyncMillis[asyncLength];
 void (*asyncFunctions[asyncLength])(); // arrary of void function pointers
@@ -22,6 +24,20 @@ void asyncLoop()
 {
     for (int i = 0; i < asyncLength; i++)
     {
+        if (!asyncFunctions[i] && asyncMillis[i] != 0)
+        {
+            Serial.println("no function found");
+            debugAsync(i);
+            debugAsync();
+            exit(-1);
+        }
+        if (asyncFunctions[i] && asyncMillis[i] == 0)
+        {
+            Serial.println("function found but no time");
+            debugAsync(i);
+            debugAsync();
+            exit(-1);
+        }
         if (asyncMillis[i] < millis() and asyncMillis[i] != 0) // if its 0 that means its not used
         {
             if (asyncFunctions[i]) // checking to make sure the function pointer is actually there
@@ -31,6 +47,10 @@ void asyncLoop()
             else
             {
                 Serial.println("function should have been ran but no pointer"); // should never run
+                Serial.println("#####################################################################################################################");
+                debugAsync(i);
+                debugAsync();
+                exit(-1);
             }
             asyncFunctions[i] = nullptr; // clear asyncFunctions array at i
             asyncMillis[i] = 0; // clear asyncMillis array at i
@@ -41,38 +61,54 @@ void asyncLoop()
 // no arg for function prints the whole array list
 void debugAsync()
 {
-    Serial.print("current millis is ");
+    #ifdef DEBUGASYNC
+    Serial.print("\tcurrent millis is ");
     Serial.println(millis());
     for (int i = 0; i < asyncLength; i++)
     {
+        Serial.print('\t');
         Serial.print(i);
         Serial.print(": \t");
         Serial.print(asyncMillis[i]);
+        Serial.print("ms \t");
+        Serial.print((unsigned long)asyncFunctions[i]);
         if (asyncFunctions[i])
         {
-            Serial.println("ms \tdoes have a function pointer");
+            Serial.println("\thas function pointer");
         }
         else
         { 
-            Serial.println("ms \tdoes not have a function pointer");
+            Serial.println("\tno function pointer");
         }
     }
+    #endif
+    #ifndef DEBUGASYNC
+    return;
+    #endif
 }
 
 // function with 1 int arugument prints only that item
 void debugAsync(int i)
 {
-    Serial.print("current millis is ");
+    #ifdef DEBUGASYNC
+    Serial.print("\tcurrent millis is ");
     Serial.println(millis());
+    Serial.print('\t');
     Serial.print(i);
     Serial.print(": \t");
     Serial.print(asyncMillis[i]);
+    Serial.print("ms \t");
+    Serial.print((unsigned long)asyncFunctions[i]);
     if (asyncFunctions[i])
     {
-        Serial.println("ms \tdoes have a function pointer");
+        Serial.println("\thas function pointer");
     }
     else
     { 
-        Serial.println("ms \tdoes not have a function pointer");
+        Serial.println("\tno function pointer");
     }
+    #endif
+    #ifndef DEBUGASYNC
+    return;
+    #endif
 }

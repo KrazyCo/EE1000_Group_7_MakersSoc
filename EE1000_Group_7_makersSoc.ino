@@ -30,10 +30,12 @@ void setup()
     setupLDR();
 
     // setup starting functions
+    addFunctionToQueue(LDRLoop, 1000);
     addFunctionToQueue(ultrasonicLoop, 1000);
 }
 
 void loop()
 {
     asyncLoop();
+    // delay(100);
 }
