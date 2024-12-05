@@ -1,13 +1,15 @@
 #include <FastLED.h>
 
 #include "async.h"
+#include "LEDStrip.h"
 
 // setup LED strip
 #define LED_PIN 9
-#define NUM_LEDS 30
+#define NUM_LEDS 13
 CRGB leds[NUM_LEDS];
 int i{};
 int brightness{50};
+// bool ultrasonicDetected{false};
 
 void setupLEDStrip()
 {
@@ -42,6 +44,52 @@ void queueFallingAnimation()
         addFunctionToQueue(nextFallingAnimation, cumulativeTime);
         cumulativeTime += timeBetweenAnimations;
     }
+}
+
+int rainbowInitialHue{0};
+// rainbow animation
+void rainbow()
+{
+    if (!ultrasonicDetected)
+    {
+        fill_rainbow(leds, NUM_LEDS, rainbowInitialHue, 7);
+        FastLED.show();
+        rainbowInitialHue += 5;
+        if (rainbowInitialHue > 255)
+            rainbowInitialHue -= 255;
+        addFunctionToQueue(rainbow, 20);
+    }
+}
+
+int countdownLED{0};
+void countdownAnimation()
+{
+    if (currentlyCountdown)
+    {
+        if (countdownLED < NUM_LEDS)
+        {
+            leds[countdownLED] = CRGB(0, 0, 255);
+            leds[NUM_LEDS - countdownLED-1] = CRGB(255, 213, 0);
+            FastLED.show();
+            Serial.print("countdownLED: ");
+            Serial.print(countdownLED);
+            Serial.print(" NUM_LEDS - countdownLED: ");
+            Serial.println(NUM_LEDS - countdownLED-1);
+            countdownLED++;
+        }
+        else
+        {
+            countdownLED = 0;
+        }
+        addFunctionToQueue(countdownAnimation, 100);
+    }
+}
+
+void queueCountdownAnimation()
+{
+    countdownLED = 0;
+    currentlyCountdown = true;
+    addFunctionToQueue(countdownAnimation, 0);
 }
 
 // sets the LED strip to the test pattern

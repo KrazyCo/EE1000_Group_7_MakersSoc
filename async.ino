@@ -27,12 +27,14 @@ void asyncLoop()
             Serial.println("no function found");
             debugAsync(i);
             debugAsync();
+            exit(-1);
         }
         if (asyncFunctions[i] && asyncMillis[i] == 0)
         {
             Serial.println("function found but no time");
             debugAsync(i);
             debugAsync();
+            exit(-1);
         }
         if (asyncMillis[i] < millis() and asyncMillis[i] != 0) // if its 0 that means its not used
         {

@@ -12,10 +12,13 @@
 // *pin d13: ultrasonic echo line
 
 // *pin a0: LDR line
-// !pin a1: speaker line
+// *pin a1: speaker line
 
 // todo: make animations for led strips
-// todo: make led animations work with async functions
+
+// todo: make the servo spin around n stuff
+
+// todo: make the LDR change the brightness, needs to be a log curve probs to make it looks good 
 
 // ? everything is waiting on led animation rn, so either need to do those or make some debug ones for rn
 
@@ -36,6 +39,7 @@ void setup()
     // addFunctionToQueue(servo0, 1000);
     // addFunctionToQueue(queueCountdown, 1000);
     // addFunctionToQueue(queueFallingAnimation, 1000);
+    addFunctionToQueue(rainbow, 1000);
 }
 
 void loop()
