@@ -14,13 +14,7 @@
 // *pin a0: LDR line
 // *pin a1: speaker line
 
-// todo: make animations for led strips
-
-// todo: make the servo spin around n stuff
-
 // todo: make the LDR change the brightness, needs to be a log curve probs to make it looks good 
-
-// ? everything is waiting on led animation rn, so either need to do those or make some debug ones for rn
 
 void setup()
 {

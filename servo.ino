@@ -1,9 +1,16 @@
 #include <Servo.h>
+
 #include "async.h"
+#include "speaker.h"
+#include "random.h"
 
 // setup servo
 const int servoPin = 3;
 Servo servo;
+#define SERVO_LIST_NUM 64
+int servoMoveOutputs[SERVO_LIST_NUM];
+int currentServoMove{0};
+
 
 void setupServo()
 {
@@ -14,6 +21,46 @@ void setupServo()
 void writeServo(int amount)
 {
     servo.write(amount);
+}
+
+void queueServoMove()
+{
+    int currentAmountOfTime{0};
+    int randomNumOutput{0};
+    int randomTime{0};
+    int i{0};
+    currentServoMove = 0;
+    while (currentAmountOfTime < totalTime - 100)
+    {
+        if (i >= SERVO_LIST_NUM)
+        {
+            Serial.println("servo list is too short");
+            return;
+        }
+        randomNumOutput = generateRandomNumber(0, 180);
+        randomTime = generateRandomNumber(200, 500);
+        currentAmountOfTime += randomTime;
+        servoMoveOutputs[i] = randomNumOutput;
+        addFunctionToQueue(nextServoMovement, currentAmountOfTime);
+        Serial.print("servo move ");
+        Serial.print(i);
+        Serial.print(" in ");
+        Serial.print(currentAmountOfTime);
+        Serial.print("ms to ");
+        Serial.println(randomNumOutput);
+        i++;
+    }
+}
+
+void nextServoMovement()
+{
+    if (currentServoMove >= SERVO_LIST_NUM)
+    {
+        Serial.println("somehow ran out of servo list");
+        exit(-1);
+    }
+    writeServo(servoMoveOutputs[currentServoMove]);
+    currentServoMove++;
 }
 
 void servo0()

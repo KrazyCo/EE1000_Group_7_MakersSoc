@@ -71,10 +71,10 @@ void countdownAnimation()
             leds[countdownLED] = CRGB(0, 0, 255);
             leds[NUM_LEDS - countdownLED-1] = CRGB(255, 213, 0);
             FastLED.show();
-            Serial.print("countdownLED: ");
-            Serial.print(countdownLED);
-            Serial.print(" NUM_LEDS - countdownLED: ");
-            Serial.println(NUM_LEDS - countdownLED-1);
+            // Serial.print("countdownLED: ");
+            // Serial.print(countdownLED);
+            // Serial.print(" NUM_LEDS - countdownLED: ");
+            // Serial.println(NUM_LEDS - countdownLED-1);
             countdownLED++;
         }
         else
@@ -91,6 +91,39 @@ void queueCountdownAnimation()
     currentlyCountdown = true;
     addFunctionToQueue(countdownAnimation, 0);
 }
+
+int flashNumber{0};
+void flashPlayerChosen()
+{
+    if (currentlyFlashing)
+    {
+        for (int i = 0; i < NUM_LEDS; i++)
+        {
+            if (i % 2 == flashNumber)
+            {
+                leds[i] = CRGB(0, 0, 255);
+            }
+            else
+            {
+                leds[i] = CRGB(255, 213, 0);
+            }
+        }
+        FastLED.show();
+        flashNumber = (flashNumber + 1) % 2;
+        Serial.print("flashNumber: ");
+        Serial.println(flashNumber);
+        addFunctionToQueue(flashPlayerChosen, 200);
+    }
+}
+
+void queueFlashPlayerChosen()
+{
+    flashNumber = 0;
+    currentlyFlashing = true;
+    addFunctionToQueue(flashPlayerChosen, 0);
+}
+
+// test animations
 
 // sets the LED strip to the test pattern
 void LEDTestPattern()

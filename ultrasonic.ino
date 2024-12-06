@@ -3,6 +3,7 @@
 #include "async.h"
 #include "speaker.h"
 #include "LEDStrip.h"
+#include "servo.h"
 
 // setup ultrasonic
 const int trigPin = 12;
@@ -22,10 +23,10 @@ void ultrasonicLoop()
     if (isObjectClose())
     {
         ultrasonicDetected = true;
-        currentlyCountdown = true;
+        queueServoMove();
         queueCountdownAnimation();
         queueCountdown();
-        addFunctionToQueue(ultrasonicLoop, 10000); 
+        addFunctionToQueue(playerChosen, totalTime); 
     }
     else
     {
@@ -33,10 +34,19 @@ void ultrasonicLoop()
         {
             ultrasonicDetected = false;
             currentlyCountdown = false;
+            currentlyFlashing = false;
             rainbow();
         }
         addFunctionToQueue(ultrasonicLoop, 200); // runs ultrasonicLoop every 200ms (5hz)
     }
+}
+
+void playerChosen()
+{
+    currentlyFlashing = true;
+    currentlyCountdown = false;
+    queueFlashPlayerChosen();
+    addFunctionToQueue(ultrasonicLoop, 5000);
 }
 
 // returns a float of what the ultrasonic sensor is currently sensing
