@@ -9,7 +9,7 @@
 const int trigPin = 12;
 const int echoPin = 13;
 double duration, distance;
-float startDistance {32.0};
+float detectionDistance {10.0};
 
 void setupUltrasonic()
 {
@@ -72,10 +72,10 @@ float measureUltrasonic()
 // distance when the arduino initilised
 bool isObjectClose()
 {
-    return (measureUltrasonic() < (startDistance * 0.9));
+    return (measureUltrasonic() < (detectionDistance));
 }
 
-void debugStartDistance()
+void debugDetectionDistance()
 {
-    Serial.println(startDistance);
+    Serial.println(detectionDistance);
 }
