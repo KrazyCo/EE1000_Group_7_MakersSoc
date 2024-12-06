@@ -4,17 +4,37 @@
 
 #define SPEAKER_PIN 7
 
-constexpr int countdownTone[] {
-    262,523,392,466,440,392,
-    262,523,392,466,440,392,
-    262, 0, 466, 0, 349, 0, 392, 0, 698, 622, 523, 622
-    };
-constexpr int countdownToneTime[] {
-    339,339,452,339,452,700,
-    339,339,452,339,452,700,
-    300, 10, 300, 70, 300, 10, 300, 70, 250, 250, 250, 250 
-    };
-constexpr int countdownNotes {sizeof(countdownTone) / sizeof(countdownTone[0])};
+#define NOTE_C4 262
+#define NOTE_D4 294
+#define NOTE_DS4 311
+#define NOTE_E4 330
+#define NOTE_F4 349
+#define NOTE_FS4 370
+#define NOTE_G4 392
+#define NOTE_A4 440
+#define NOTE_AS4 466
+#define NOTE_B4 494
+#define NOTE_C5 523
+#define NOTE_D5 587
+#define NOTE_DS5 622
+#define NOTE_E5 659
+#define NOTE_F5 698
+#define NOTE_G5 784
+#define NOTE_A5 880
+#define NOTE_B5 988
+
+constexpr int countdownTone[]{
+    NOTE_C4, NOTE_C5, NOTE_G4, NOTE_AS4, NOTE_A4, NOTE_G4,
+    NOTE_C4, NOTE_C5, NOTE_G4, NOTE_AS4, NOTE_A4, NOTE_G4,
+    NOTE_C4, NOTE_DS4, NOTE_E4, NOTE_F4, NOTE_FS4, NOTE_G4,
+    NOTE_C5, NOTE_AS4, 0, NOTE_F4, NOTE_G4, 0, NOTE_F5, NOTE_DS5, NOTE_C5, NOTE_DS5};
+constexpr int countdownToneTime[]{
+    375, 375, 250, 375, 375, 250,
+    375, 375, 250, 375, 375, 250,
+    375, 375, 250, 375, 375, 250,
+    125, 125, 250, 125, 125, 250, 125, 125, 125, 125};
+
+constexpr int countdownNotes{sizeof(countdownTone) / sizeof(countdownTone[0])};
 int currentTone{0};
 
 void setupSpeaker()
