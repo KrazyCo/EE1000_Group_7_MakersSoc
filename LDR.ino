@@ -1,3 +1,5 @@
+#include <FastLED.h>
+
 #include "async.h"
 
 void setupLDR()
@@ -9,7 +11,7 @@ void setupLDR()
 // returns the value (0-1023) of the LDR
 int measureLDR()
 {
-    int LDRValue{ analogRead(A0) };
+    int LDRValue{analogRead(A0)};
     Serial.print("LDR: ");
     Serial.println(LDRValue);
     return LDRValue;
@@ -17,6 +19,9 @@ int measureLDR()
 
 void LDRLoop()
 {
-    measureLDR();
-    addFunctionToQueue(LDRLoop, 1000);
+    int brightness{min(map(measureLDR(), 500, 1023, 50, 5), 50)};
+    Serial.print("brightness: ");
+    Serial.println(brightness);
+    FastLED.setBrightness(brightness);
+    addFunctionToQueue(LDRLoop, 100);
 }
