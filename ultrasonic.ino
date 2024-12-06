@@ -45,6 +45,7 @@ void playerChosen()
 {
     currentlyFlashing = true;
     currentlyCountdown = false;
+    disableServo(); // turn servo back off so it doesnt jitter
     queueFlashPlayerChosen();
     addFunctionToQueue(ultrasonicLoop, 5000);
 }

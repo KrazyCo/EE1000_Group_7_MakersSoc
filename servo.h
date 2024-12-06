@@ -7,5 +7,7 @@ void servo0();
 void servo180();
 void queueServoMove();
 void nextServoMovement();
+void enableServo();
+void disableServo();
 
 #endif

@@ -16,6 +16,7 @@ void setupServo()
 {
     // setup servo
     servo.attach(servoPin);
+    disableServo(); // disable servo when not needed
 }
 
 void writeServo(int amount)
@@ -30,6 +31,9 @@ void queueServoMove()
     int randomTime{0};
     int i{0};
     currentServoMove = 0;
+
+    enableServo(); // enable servo
+
     while (currentAmountOfTime < totalTime - 100)
     {
         if (i >= SERVO_LIST_NUM)
@@ -61,6 +65,16 @@ void nextServoMovement()
     }
     writeServo(servoMoveOutputs[currentServoMove]);
     currentServoMove++;
+}
+
+void enableServo()
+{
+    servo.attach(servoPin); // enable servo
+}
+
+void disableServo()
+{
+    servo.detach(); // disable servo
 }
 
 void servo0()
