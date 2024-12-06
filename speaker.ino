@@ -2,6 +2,8 @@
 
 #include "speaker.h"
 
+#define SPEAKER_PIN 7
+
 constexpr int countdownTone[] {
     262,523,392,466,440,392,
     262,523,392,466,440,392,
@@ -32,7 +34,7 @@ void nextCountdownTone()
     Serial.println("ms");
     if (currentTone < countdownNotes)
     {
-        tone(A1, countdownTone[currentTone], countdownToneTime[currentTone]);
+        tone(SPEAKER_PIN, countdownTone[currentTone], countdownToneTime[currentTone]);
         currentTone++;
     }
     else

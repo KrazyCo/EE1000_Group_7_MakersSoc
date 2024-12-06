@@ -20,6 +20,13 @@ void setupUltrasonic()
 
 void ultrasonicLoop()
 {
+    if (ultrasonicDetected)
+    {
+        ultrasonicDetected = false;
+        currentlyCountdown = false;
+        currentlyFlashing = false;
+        rainbow();
+    }
     if (isObjectClose())
     {
         ultrasonicDetected = true;
@@ -30,13 +37,6 @@ void ultrasonicLoop()
     }
     else
     {
-        if (ultrasonicDetected)
-        {
-            ultrasonicDetected = false;
-            currentlyCountdown = false;
-            currentlyFlashing = false;
-            rainbow();
-        }
         addFunctionToQueue(ultrasonicLoop, 200); // runs ultrasonicLoop every 200ms (5hz)
     }
 }

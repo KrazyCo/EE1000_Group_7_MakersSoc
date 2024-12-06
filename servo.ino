@@ -5,7 +5,7 @@
 #include "random.h"
 
 // setup servo
-const int servoPin = 3;
+const int servoPin = 5;
 Servo servo;
 #define SERVO_LIST_NUM 64
 int servoMoveOutputs[SERVO_LIST_NUM];
