@@ -1,5 +1,6 @@
-#include "async.h"
+#include <Tone.h>
 
+#include "async.h"
 #include "speaker.h"
 
 #define SPEAKER_PIN 7
@@ -17,8 +18,11 @@ constexpr int countdownToneTime[] {
 constexpr int countdownNotes {sizeof(countdownTone) / sizeof(countdownTone[0])};
 int currentTone{0};
 
+Tone speaker;
+
 void setupSpeaker()
 {
+    speaker.begin(SPEAKER_PIN);
     for (int i = 0; i < countdownNotes; i++)
     {
         totalTime += countdownToneTime[i];
@@ -34,7 +38,7 @@ void nextCountdownTone()
     Serial.println("ms");
     if (currentTone < countdownNotes)
     {
-        tone(SPEAKER_PIN, countdownTone[currentTone], countdownToneTime[currentTone]);
+        speaker.play(countdownTone[currentTone], countdownToneTime[currentTone]);
         currentTone++;
     }
     else
