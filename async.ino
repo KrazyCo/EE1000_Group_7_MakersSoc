@@ -45,7 +45,6 @@ void asyncLoop()
             else
             {
                 Serial.println("function should have been ran but no pointer"); // should never run
-                Serial.println("#####################################################################################################################");
                 debugAsync(i);
                 debugAsync();
                 exit(-1);
