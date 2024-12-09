@@ -14,7 +14,8 @@
 // *pin a0: LDR line
 // *pin a1: speaker line
 
-// todo: make the LDR change the brightness, needs to be a log curve probs to make it looks good 
+// todo: fix the melody for the 3rd section
+// todo: once the contiunius servo is being used make sure that the current servo code works with it - will probs have to give it longer time between steps
 
 void setup()
 {
@@ -28,12 +29,12 @@ void setup()
     setupSpeaker();
 
     // setup starting functions
-    addFunctionToQueue(LDRLoop, 1000);
-    addFunctionToQueue(ultrasonicLoop, 1000);
+    addFunctionToQueue(LDRLoop, 100);
+    addFunctionToQueue(ultrasonicLoop, 100);
+    addFunctionToQueue(rainbow, 100);
     // addFunctionToQueue(servo0, 1000);
     // addFunctionToQueue(queueCountdown, 1000);
     // addFunctionToQueue(queueFallingAnimation, 1000);
-    addFunctionToQueue(rainbow, 1000);
 }
 
 void loop()
