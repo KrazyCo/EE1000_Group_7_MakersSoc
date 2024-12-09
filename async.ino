@@ -53,6 +53,7 @@ void asyncLoop()
             asyncMillis[i] = 0; // clear asyncMillis array at i
         }
     }
+    delay(10); // stop loop running too fast as speaker breaks
 }
 
 // no arg for function prints the whole array list
