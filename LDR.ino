@@ -20,8 +20,8 @@ int measureLDR()
 void LDRLoop()
 {
     int brightness{min(map(measureLDR(), 500, 1023, 50, 5), 50)};
-    // Serial.print("brightness: ");
-    // Serial.println(brightness);
+    Serial.print("brightness: ");
+    Serial.println(brightness);
     FastLED.setBrightness(brightness);
     addFunctionToQueue(LDRLoop, 100);
 }
