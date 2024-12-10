@@ -55,6 +55,6 @@ void queueCountdown()
     for (int i = 0; i < countdownNotes; i++)
     {
         addFunctionToQueue(nextCountdownTone, cumulativeTime); // add the tone to the queue to be played in the correct time
-        cumulativeTime += countdownToneTime[i]; // add the time to the cumulative time
+        cumulativeTime += countdownToneTime[i];                // add the time to the cumulative time
     }
 }

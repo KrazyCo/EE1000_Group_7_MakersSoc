@@ -9,7 +9,7 @@
 #define TRIG_PIN 12
 #define ECHO_PIN 13
 
-float detectionDistance {10.0};
+float detectionDistance{10.0};
 
 double duration, distance;
 
@@ -31,10 +31,10 @@ void ultrasonicLoop()
     }
     if (isObjectClose()) // if the ultrasonic sensor detects something
     {
-        ultrasonicDetected = true; // sets the flag to true so that  the rainbow animation stops
-        queueServoMove(); // queue the servo movements
-        queueCountdownAnimation(); // queue the countdown animation on the LED strip
-        queueCountdown(); // queue the countdown tones
+        ultrasonicDetected = true;                   // sets the flag to true so that  the rainbow animation stops
+        queueServoMove();                            // queue the servo movements
+        queueCountdownAnimation();                   // queue the countdown animation on the LED strip
+        queueCountdown();                            // queue the countdown tones
         addFunctionToQueue(playerChosen, totalTime); // queue the player chosen function to be ran after the countdown has finished
     }
     else
@@ -46,9 +46,9 @@ void ultrasonicLoop()
 // function to be ran when the player is chosen
 void playerChosen()
 {
-    currentlyFlashing = true; // set the flag to true so that the LED strip flashes
+    currentlyFlashing = true;   // set the flag to true so that the LED strip flashes
     currentlyCountdown = false; // set the flag to false so that the countdown stops
-    disableServo(); // turn servo back off so it doesnt jitter
+    disableServo();             // turn servo back off so it doesnt jitter
     queueFlashPlayerChosen();
     addFunctionToQueue(ultrasonicLoop, 5000); // restart the ultrasonic loop after 5 seconds
 }
@@ -70,7 +70,7 @@ float measureUltrasonic()
 
     Serial.print("Ultrasonic: ");
     Serial.println(distance);
-    
+
     return distance;
 }
 

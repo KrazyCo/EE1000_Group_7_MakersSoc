@@ -1,4 +1,4 @@
-constexpr int asyncLength = 128; // 128 seems to be more than enough, any more will use too much dynamic memory 
+constexpr int asyncLength = 128; // 128 seems to be more than enough, any more will use too much dynamic memory
 unsigned long asyncMillis[asyncLength];
 void (*asyncFunctions[asyncLength])(); // arrary of void function pointers
 
@@ -7,13 +7,13 @@ void addFunctionToQueue(void (*fcnToCall)(), unsigned long milliseconds)
 {
     for (int i = 0; i < asyncLength; i++)
     {
-        // checking to see if space is free, these should always BOTH either be true or false but if arrays somewhere else 
+        // checking to see if space is free, these should always BOTH either be true or false but if arrays somewhere else
         // overrun this normally is the first to break and this makes sure that it is not overwritten
-        if (!asyncFunctions[i] and asyncMillis[i] == 0) 
+        if (!asyncFunctions[i] and asyncMillis[i] == 0)
         {
             asyncFunctions[i] = fcnToCall; // put the function pointer into the array
             asyncMillis[i] = millis() + milliseconds;
-            return; 
+            return;
         }
     }
     Serial.println("ran out of async spaces - need to increase asyncLength");
@@ -52,7 +52,7 @@ void asyncLoop()
                 // exit(-1); // runs the exit function to stop the program to make debugging easier, but commenting out for production
             }
             asyncFunctions[i] = nullptr; // clear asyncFunctions array at i
-            asyncMillis[i] = 0; // clear asyncMillis array at i
+            asyncMillis[i] = 0;          // clear asyncMillis array at i
         }
     }
 }
@@ -75,7 +75,7 @@ void debugAsync()
             Serial.println("\thas function pointer");
         }
         else
-        { 
+        {
             Serial.println("\tno function pointer");
         }
     }
@@ -98,7 +98,7 @@ void debugAsync(int i)
         Serial.println("\thas function pointer");
     }
     else
-    { 
+    {
         Serial.println("\tno function pointer");
     }
 }

@@ -17,7 +17,6 @@ void setupLEDStrip()
     FastLED.setBrightness(INITIAL_BRIGHTNESS); // this will be overwritten by the LDR loop later
 }
 
-
 int rainbowInitialHue{0};
 // rainbow animation
 void rainbow()
@@ -27,10 +26,10 @@ void rainbow()
         fill_rainbow(leds, NUM_LEDS, rainbowInitialHue, 7); // fill the strip with rainbow colors
         FastLED.show();
 
-        rainbowInitialHue += 5; // increment the hue to make the ranbow seem to move down the strip
+        rainbowInitialHue += 5;      // increment the hue to make the ranbow seem to move down the strip
         if (rainbowInitialHue > 255) // if the hue is greater than 255 reset it to 0 + anything left over from the previous increment
             rainbowInitialHue -= 255;
-        
+
         addFunctionToQueue(rainbow, 20); // add this function to the queue to be ran in 20ms
     }
 }
@@ -42,8 +41,8 @@ void countdownAnimation()
     {
         if (countdownLED < NUM_LEDS)
         {
-            leds[countdownLED] = CRGB(0, 0, 255); // blue LED
-            leds[NUM_LEDS - countdownLED-1] = CRGB(255, 213, 0); // yellow LED
+            leds[countdownLED] = CRGB(0, 0, 255);                  // blue LED
+            leds[NUM_LEDS - countdownLED - 1] = CRGB(255, 213, 0); // yellow LED
             FastLED.show();
             countdownLED++;
         }
@@ -59,7 +58,7 @@ void countdownAnimation()
 void queueCountdownAnimation()
 {
     countdownLED = 0;
-    currentlyCountdown = true; // set the countdown flag to true, to be set to false when the countdown is finished
+    currentlyCountdown = true;                 // set the countdown flag to true, to be set to false when the countdown is finished
     addFunctionToQueue(countdownAnimation, 0); // add the countdown animation to the queue to be ran on next loop
 }
 
@@ -80,7 +79,7 @@ void flashPlayerChosen()
             }
         }
         FastLED.show();
-        flashNumber = (flashNumber == 0) ? 1 : 0; // if flashNumber is 0, set to 1, otherwise set to 0 
+        flashNumber = (flashNumber == 0) ? 1 : 0; // if flashNumber is 0, set to 1, otherwise set to 0
 
         Serial.print("flashNumber: ");
         Serial.println(flashNumber);
@@ -93,6 +92,6 @@ void flashPlayerChosen()
 void queueFlashPlayerChosen()
 {
     flashNumber = 0;
-    currentlyFlashing = true; // set the flashing flag to true, to be set to false when the flashing is finished
+    currentlyFlashing = true;                 // set the flashing flag to true, to be set to false when the flashing is finished
     addFunctionToQueue(flashPlayerChosen, 0); // add the flash animation to the queue to be ran on next loop
 }

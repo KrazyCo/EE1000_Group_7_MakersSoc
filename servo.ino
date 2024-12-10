@@ -12,7 +12,6 @@ Servo servo;
 int servoMoveOutputs[SERVO_LIST_NUM];
 int currentServoMove{0};
 
-
 void setupServo()
 {
     // setup servo

@@ -27,6 +27,6 @@ void LDRLoop()
     Serial.println(brightness);
 
     FastLED.setBrightness(brightness); // set the brightness of the LEDs
-    
+
     addFunctionToQueue(LDRLoop, 100); // queue this function again in 100ms
 }
