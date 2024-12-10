@@ -14,8 +14,6 @@
 // *pin a0: LDR line
 // *pin a1: speaker line
 
-// todo: make the LDR change the brightness, needs to be a log curve probs to make it looks good 
-
 void setup()
 {
     Serial.begin(115200);
@@ -28,16 +26,14 @@ void setup()
     setupSpeaker();
 
     // setup starting functions
-    addFunctionToQueue(LDRLoop, 1000);
-    addFunctionToQueue(ultrasonicLoop, 1000);
-    // addFunctionToQueue(servo0, 1000);
-    // addFunctionToQueue(queueCountdown, 1000);
-    // addFunctionToQueue(queueFallingAnimation, 1000);
-    addFunctionToQueue(rainbow, 1000);
+    // functions are queued to run in 100ms from startup to allow for any setup to complete
+    addFunctionToQueue(LDRLoop, 100);
+    addFunctionToQueue(ultrasonicLoop, 100);
+    addFunctionToQueue(rainbow, 100);
 }
 
 void loop()
 {
     asyncLoop();
-    // delay(100);
+    delay(10); // stop loop running too fast as speaker breaks
 }

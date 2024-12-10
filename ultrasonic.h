@@ -4,7 +4,6 @@
 void setupUltrasonic();
 float measureUltrasonic();
 bool isObjectClose();
-void debugDetectionDistance();
 void ultrasonicLoop();
 void playerChosen();
 
