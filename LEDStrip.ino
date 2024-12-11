@@ -5,7 +5,7 @@
 
 // setup LED strip
 #define LED_PIN 9
-#define NUM_LEDS 13
+#define NUM_LEDS 40
 
 CRGB leds[NUM_LEDS];
 #define INITIAL_BRIGHTNESS 50
