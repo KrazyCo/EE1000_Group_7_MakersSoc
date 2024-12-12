@@ -46,7 +46,7 @@ void queueServoMove()
         }
         // generates the random move and random time
         randomNumOutput = generateRandomNumber(0, 180);
-        randomTime = generateRandomNumber(200, 500);
+        randomTime = generateRandomNumber(100, 500);
 
         // adds the random time to the current time
         currentAmountOfTime += randomTime;

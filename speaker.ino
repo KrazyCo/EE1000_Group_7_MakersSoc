@@ -39,7 +39,7 @@ void nextCountdownTone()
 
     if (currentTone < countdownNotes) // if there are still tones to play
     {
-        tone(SPEAKER_PIN, countdownTone[currentTone], countdownToneTime[currentTone]); // play the tone
+        tone(SPEAKER_PIN, countdownTone[currentTone], countdownToneTime[currentTone]-10); // play the tone
         currentTone++;
     }
     else // otherwise reset the tone count to the start

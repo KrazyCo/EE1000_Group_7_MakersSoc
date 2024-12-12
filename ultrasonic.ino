@@ -9,7 +9,7 @@
 #define TRIG_PIN 12
 #define ECHO_PIN 13
 
-float detectionDistance{10.0};
+float detectionDistance{4.0};
 
 double duration, distance;
 
@@ -39,7 +39,7 @@ void ultrasonicLoop()
     }
     else
     {
-        addFunctionToQueue(ultrasonicLoop, 200); // runs ultrasonicLoop every 200ms (5hz)
+        addFunctionToQueue(ultrasonicLoop, 100); // runs ultrasonicLoop every 200ms (5hz)
     }
 }
 

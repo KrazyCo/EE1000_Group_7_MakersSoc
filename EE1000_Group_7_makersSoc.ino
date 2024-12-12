@@ -35,5 +35,5 @@ void setup()
 void loop()
 {
     asyncLoop();
-    delay(10); // stop loop running too fast as speaker breaks
+    // delay(10); // stop loop running too fast as speaker breaks
 }

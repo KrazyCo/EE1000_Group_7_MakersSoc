@@ -5,7 +5,7 @@
 
 // setup LED strip
 #define LED_PIN 9
-#define NUM_LEDS 40
+#define NUM_LEDS 39
 
 CRGB leds[NUM_LEDS];
 #define INITIAL_BRIGHTNESS 50
@@ -50,7 +50,7 @@ void countdownAnimation()
         {
             countdownLED = 0;
         }
-        addFunctionToQueue(countdownAnimation, 100);
+        addFunctionToQueue(countdownAnimation, 50);
     }
 }
 
