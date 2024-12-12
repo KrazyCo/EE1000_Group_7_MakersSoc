@@ -6,13 +6,13 @@
 #include "LDR.h"
 #include "speaker.h"
 
-// *pin d3: 360 degree servo data
+// *pin d5: 360 degree servo data
+// *pin d6: speaker line
 // *pin d9: led strip data
 // *pin d12: ultrasonic trig line
 // *pin d13: ultrasonic echo line
 
 // *pin a0: LDR line
-// *pin a1: speaker line
 
 void setup()
 {
